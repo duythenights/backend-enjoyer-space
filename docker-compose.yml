@@ -1,0 +1,60 @@
+version: "3.9"
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+    networks:
+      - mynet
+
+  auth-service:
+    build: ./auth-service
+    env_file:
+      - ./auth-service/.env
+    volumes:
+      - ./auth-service:/app
+      - /app/node_modules
+    depends_on:
+      - rabbitmq
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    networks:
+      - mynet
+
+  mail-service:
+    build: ./mail-service
+    env_file:
+      - ./mail-service/.env
+    volumes:
+      - ./mail-service:/app
+      - /app/node_modules
+    depends_on:
+      - rabbitmq
+    ports:
+      - "3001:3001"
+    networks:
+      - mynet
+
+  text-generation-service:
+    build: ./text-generation-service
+    env_file:
+      - ./text-generation-service/.env
+    volumes:
+      - ./text-generation-service:/app
+      - /app/node_modules
+    depends_on:
+      - rabbitmq
+    ports:
+      - "3002:3002"
+    restart: unless-stopped
+    networks:
+      - mynet
+
+networks:
+  mynet:
