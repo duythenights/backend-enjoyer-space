@@ -9,12 +9,11 @@ RABBIT_URL=amqp://admin:admin@rabbitmq:5672
 ```
 
 ```
-/mail-service/.env
+/mail-service/.env => go to https://app.brevo.com/settings/keys/api => generate new api key
 RABBIT_URL=amqp://admin:admin@rabbitmq:5672
-SMTP_HOST=sandbox.smtp.mailtrap.io
-SMTP_PORT=587
-SMTP_USER=409ae1638c4c55
-SMTP_PASS=4b008c28cdfe92
+BREVO_API_KEY=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
+BREVO_SENDER_EMAIL=duythenights@gmail.com
+BREVO_SENDER_NAME=Backend Enjoyer
 ```
 
 ```
