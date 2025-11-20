@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { publishUserRegistered } from "../event/authEvents";
+import { publishUserRegistered } from "../event/authEvent";
 
 export const register = async (req: Request, res: Response) => {
   // giả lập tạo user
