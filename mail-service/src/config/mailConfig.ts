@@ -1,11 +1,11 @@
-import nodemailer from "nodemailer";
+import * as Brevo from "@getbrevo/brevo";
 
-export const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT),
-  secure: false, // TLS = false (port 587)
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
+const apiInstance = new Brevo.TransactionalEmailsApi();
+console.log("env", process.env.BREVO_API_KEY);
+
+apiInstance.setApiKey(
+  Brevo.TransactionalEmailsApiApiKeys.apiKey,
+  process.env.BREVO_API_KEY!
+);
+
+export default apiInstance;
